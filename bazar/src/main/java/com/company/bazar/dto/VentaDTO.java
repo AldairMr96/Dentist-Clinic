@@ -1,0 +1,1 @@
+package com.company.bazar.dto;public class VentaDTO {}

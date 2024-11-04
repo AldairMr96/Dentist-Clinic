@@ -1,0 +1,1 @@
+package com.company.bazar.service;import com.company.bazar.model.Product;import java.util.List;public interface IProductService {    public  void createProduct (Product product);    public List<Product> getProducts ();    public Product findProduct (Long idProduct);    public void deleteProduct (Long idProduct);    public  void editProduct (Product product);}

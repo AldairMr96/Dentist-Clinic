@@ -1,0 +1,1 @@
+package com.company.bazar.service;import com.company.bazar.model.Client;import com.company.bazar.model.Sale;import java.util.List;public interface ISaleService {    public  void createSale (Sale sale);    public List<Sale> getSales ();    public Sale findSale (Long idSale);    public void deleteSale(Long idSale);    public  void editSale (Sale sale);}
