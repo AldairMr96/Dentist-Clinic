@@ -1,0 +1,93 @@
+    [
+        {
+        "codProduct": 101,
+        "nameProduct": "Laptop",
+        "cost": 750.00,
+        "stock": 10,
+        "sale": {
+            "codSale": 1
+        }
+        },
+        {
+        "codProduct": 102,
+        "nameProduct": "Teclado",
+        "cost": 50.00,
+        "stock": 25,
+        "sale": {
+            "codSale": 1
+        }
+        },
+        {
+        "codProduct": 103,
+        "nameProduct": "Mouse",
+        "cost": 25.00,
+        "stock": 40,
+        "sale": {
+            "codSale": 1
+        }
+        },
+        {
+        "codProduct": 104,
+        "nameProduct": "Monitor",
+        "cost": 200.00,
+        "stock": 15,
+        "sale": {
+            "codSale": 1
+        }
+        },
+        {
+        "codProduct": 105,
+        "nameProduct": "Impresora",
+        "cost": 150.00,
+        "stock": 5,
+        "sale": {
+            "codSale": 1
+        }
+        },
+        {
+        "codProduct": 106,
+        "nameProduct": "Tablet",
+        "cost": 300.00,
+        "stock": 20,
+        "sale": {
+            "codSale": 2
+        }
+        },
+        {
+        "codProduct": 107,
+        "nameProduct": "Auriculares",
+        "cost": 45.00,
+        "stock": 30,
+        "sale": {
+            "codSale": 2
+        }
+        },
+        {
+        "codProduct": 108,
+        "nameProduct": "Cámara",
+        "cost": 500.00,
+        "stock": 8,
+        "sale": {
+            "codSale": 2
+        }
+        },
+        {
+        "codProduct": 109,
+        "nameProduct": "Teléfono",
+        "cost": 600.00,
+        "stock": 10,
+        "sale": {
+            "codSale": 2
+        }
+        },
+        {
+        "codProduct": 110,
+        "nameProduct": "Router",
+        "cost": 120.00,
+        "stock": 18,
+        "sale": {
+            "codSale": 2
+        }
+        }
+    ]
+  

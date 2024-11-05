@@ -1,0 +1,52 @@
+[{
+    "codSale": 1,
+    "saleDate": "2024-11-03T10:30:00",
+    "total": 1175.00,
+    "client": {
+      "idClient": 1
+    },
+    "productList": [
+      {
+        "codProduct": 101
+      },
+      {
+        "codProduct": 102
+      },
+      {
+        "codProduct": 103
+      },
+      {
+        "codProduct": 104
+      },
+      {
+        "codProduct": 105
+      }
+    ]
+},
+{
+    "codSale": 2,
+    "saleDate": "2024-11-04T14:45:00",
+    "total": 1565.00,
+    "client": {
+      "idClient": 2
+    },
+    "productList": [
+      {
+        "codProduct": 106
+      },
+      {
+        "codProduct": 107
+      },
+      {
+        "codProduct": 108
+      },
+      {
+        "codProduct": 109
+      },
+      {
+        "codProduct": 110
+      }
+    ]
+  }
+]  
+  

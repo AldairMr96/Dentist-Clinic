@@ -1,0 +1,32 @@
+
+    [ {
+        "idClient": 1,
+        "nameClient": "Juan",
+        "lastnameClient": "Pérez",
+        "dni": "123456789"
+        },
+        {
+        "idClient": 2,
+        "nameClient": "Ana",
+        "lastnameClient": "García",
+        "dni": "987654321"
+        },
+        {
+        "idClient": 3,
+        "nameClient": "Carlos",
+        "lastnameClient": "Ramírez",
+        "dni": "456789123"
+        },
+        {
+        "idClient": 4,
+        "nameClient": "Luisa",
+        "lastnameClient": "Martínez",
+        "dni": "321654987"
+        },
+        {
+        "idClient": 5,
+        "nameClient": "María",
+        "lastnameClient": "Gómez",
+        "dni": "789123456"
+        }
+    ]   
