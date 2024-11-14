@@ -1,0 +1,1 @@
+package com.mycompany.ClinicaOdontologica.controller;import org.springframework.web.bind.annotation.RequestMapping;import org.springframework.web.bind.annotation.RestController;@RestController@RequestMapping("/Dentist")public class DentistController {}
