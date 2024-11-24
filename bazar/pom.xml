@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.company</groupId>
-	<artifactId>bazar</artifactId>
+	<artifactId>Bazar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bazar</name>
 	<description>API bazar de compras </description>
