@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  bazar:
+    build: .
+    container_name: bazar
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://bazar_db:3306/bazar?useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+    depends_on:
+      - bazar_db
+
+  bazar_db:
+    image: mysql:8.0.33
+    container_name: bazar_db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: bazar
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3307:3306"
+    volumes:
+      - bazar_db_data:/var/lib/mysql
+
+volumes:
+  bazar_db_data:
