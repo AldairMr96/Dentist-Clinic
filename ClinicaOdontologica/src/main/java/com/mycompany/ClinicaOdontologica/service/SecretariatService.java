@@ -1,1 +1,0 @@
-package com.mycompany.ClinicaOdontologica.service;public class SecretariatService implements ISecretariatService{}

@@ -1,1 +1,0 @@
-package com.mycompany.ClinicaOdontologica.repository;import com.mycompany.ClinicaOdontologica.model.Turn;import org.springframework.data.jpa.repository.JpaRepository;import org.springframework.stereotype.Repository;@Repositorypublic interface ITurnRespository extends JpaRepository<Turn, Long> {}
