@@ -1,4 +1,4 @@
-package com.company.bazar.ClienteTest;
+package com.company.bazar.serviceTest;
 import com.company.bazar.model.Client;
 import com.company.bazar.repository.IClientRepository;
 import com.company.bazar.service.ClientService;
