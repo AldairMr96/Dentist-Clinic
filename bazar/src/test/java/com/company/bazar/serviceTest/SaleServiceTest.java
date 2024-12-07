@@ -42,7 +42,7 @@ public class SaleServiceTest {
     private  SaleService saleService;
 
     @BeforeEach
-    public void init (){
+    public void setUp (){
         MockitoAnnotations.openMocks(this);
     }
     @Test
