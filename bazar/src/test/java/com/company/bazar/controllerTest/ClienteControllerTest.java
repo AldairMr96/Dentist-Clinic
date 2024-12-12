@@ -4,9 +4,7 @@ package com.company.bazar.controllerTest;
 import com.company.bazar.controller.ClientController;
 import com.company.bazar.model.Client;
 import com.company.bazar.service.ClientService;
-import com.mysql.cj.x.protobuf.Mysqlx;
 import jakarta.persistence.EntityNotFoundException;
-import org.h2.command.dml.MergeUsing;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,10 +15,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpStatus.*;
 
@@ -120,6 +116,60 @@ public class ClienteControllerTest {
         assertEquals(INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         verify(clientService, times(1)).findClient(idTest);
 
+    }
+    @Test
+    public void deleteClientControllerTest(){
+        doNothing().when(clientService).deleteClient(1L);
+
+        ResponseEntity<?> responseEntity = clientController.deleteClient(1L);
+
+        assertNotNull(responseEntity);
+        assertEquals(OK, responseEntity.getStatusCode());
+        assertEquals("Delete client successfully", responseEntity.getBody());
+        verify(clientService, times(1)).deleteClient(1L);
+    }
+
+    @Test
+    public void deleteClientControllerNotFoundTest(){
+
+        doThrow(new EntityNotFoundException("Client not found")).when(clientService).deleteClient(1L);
+
+        ResponseEntity<?>responseEntity= clientController.deleteClient(1L);
+
+        assertNotNull(responseEntity);
+        assertEquals(NOT_FOUND, responseEntity.getStatusCode());
+        assertEquals("Client not found", responseEntity.getBody());
+        verify(clientService, times(1)).deleteClient(1L);
+
+    }
+    @Test
+    public void deleteClientControllerErrorTest() {
+
+        doThrow(new RuntimeException("Server internal Error")).when(clientService).deleteClient(1L);
+
+        ResponseEntity<?>responseEntity = clientController.deleteClient(1L);
+
+        assertNotNull(responseEntity);
+        assertEquals(INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        assertEquals("Server internal Error", responseEntity.getBody());
+        verify(clientService, times(1)).deleteClient(1L);
+    }
+
+    @Test
+    public  void editClientControllerTest (){
+      Client client =  new Client(1L, "Aldair", "Martinez", "123456789", new ArrayList<>());
+
+      doNothing().when(clientService).editClient(client);
+      when(clientService.findClient(client.getIdClient())).thenReturn(client);
+
+      Client editedClient = clientController.editClient(client);
+        assertNotNull(editedClient);
+        assertEquals(client.getIdClient(), editedClient.getIdClient());
+        assertEquals(client.getNameClient(), editedClient.getNameClient());
+        assertEquals(client.getLastnameClient(), editedClient.getLastnameClient());
+
+        verify(clientService, times(1)).editClient(client);
+        verify(clientService, times(1)).findClient(client.getIdClient());
     }
 
 }
