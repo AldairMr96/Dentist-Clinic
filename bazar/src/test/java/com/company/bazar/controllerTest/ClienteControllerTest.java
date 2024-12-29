@@ -156,21 +156,68 @@ public class ClienteControllerTest {
     }
 
     @Test
-    public  void editClientControllerTest (){
-      Client client =  new Client(1L, "Aldair", "Martinez", "123456789", new ArrayList<>());
+    void editClientSuccessTest() {
 
-      doNothing().when(clientService).editClient(client);
-      when(clientService.findClient(client.getIdClient())).thenReturn(client);
+        Client client = new Client(1L, "Aldair", "Martinez", "123456789", new ArrayList<>());
 
-      Client editedClient = clientController.editClient(client);
-        assertNotNull(editedClient);
-        assertEquals(client.getIdClient(), editedClient.getIdClient());
-        assertEquals(client.getNameClient(), editedClient.getNameClient());
-        assertEquals(client.getLastnameClient(), editedClient.getLastnameClient());
+
+
+        doNothing().when(clientService).editClient(client);
+
+
+        ResponseEntity<?> response = clientController.editClient(client);
+
+
+        assertNotNull(response);
+        assertEquals(OK, response.getStatusCode());
+        assertEquals(client, response.getBody());
+
 
         verify(clientService, times(1)).editClient(client);
-        verify(clientService, times(1)).findClient(client.getIdClient());
     }
+
+    @Test
+    void editClientNotFoundTest() {
+        // Datos de prueba
+        Client client = new Client(1L, "Aldair", "Martinez", "123456789", new ArrayList<>());
+
+
+
+        doThrow(new EntityNotFoundException("Client not found")).when(clientService).editClient(client);
+
+
+        ResponseEntity<?> response = clientController.editClient(client);
+
+        // Verificar el resultado
+        assertNotNull(response);
+        assertEquals(NOT_FOUND, response.getStatusCode());
+        assertEquals("Client not found", response.getBody());
+
+
+        verify(clientService, times(1)).editClient(client);
+    }
+
+    @Test
+    void editClientServerErrorTest() {
+        // Datos de prueba
+        Client client = new Client(1L, "Aldair", "Martinez", "123456789", new ArrayList<>());
+
+
+        // Simular excepción inesperada en el servicio
+        doThrow(new RuntimeException("Server internal Error")).when(clientService).editClient(client);
+
+        // Ejecutar el método del controlador
+        ResponseEntity<?> response = clientController.editClient(client);
+
+        // Verificar el resultado
+        assertNotNull(response);
+        assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Server internal Error", response.getBody());
+
+        // Verificar interacciones con el servicio
+        verify(clientService, times(1)).editClient(client);
+    }
+
 
 }
 

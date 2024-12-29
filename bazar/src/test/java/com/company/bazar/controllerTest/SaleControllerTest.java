@@ -204,8 +204,10 @@ public class SaleControllerTest {
         verify(saleService, times(1)).deleteSale(1L);
     }
 
+
     @Test
-    public void editControllerTest (){
+    void editSaleSuccessTest() {
+
         Client client = new Client(1L, "Aldair", "Martinez", "1234576", new ArrayList<>());
 
         Product product = new Product(1L, "TV", 700.0, 7L, new ArrayList<>());
@@ -223,15 +225,79 @@ public class SaleControllerTest {
         CreateSaleDTO saleDTO = new CreateSaleDTO(client.getIdClient(), productSaleDTOS);
         Sale newSale = new Sale(1L,LocalDate.now(), client, saleProducts,10000.0);
 
+
         when(saleService.findSale(client.getIdClient())).thenReturn(newSale);
         doNothing().when(saleService).editSale(saleDTO);
 
-        CreateSaleDTO saleResult = saleController.editSale(saleDTO);
 
-        assertNotNull(saleResult);
-        assertEquals(2, saleResult.getProductList().size());
-        assertFalse(saleResult.getProductList().isEmpty());
+        ResponseEntity<?> response = saleController.editSale(saleDTO);
 
+
+        assertNotNull(response);
+        assertEquals(OK, response.getStatusCode());
+        assertEquals(saleDTO, response.getBody());
+        verify(saleService, times(1)).editSale(saleDTO);
+    }
+
+    @Test
+    void editSaleNotFoundTest() {
+        Client client = new Client(1L, "Aldair", "Martinez", "1234576", new ArrayList<>());
+
+        Product product = new Product(1L, "TV", 700.0, 7L, new ArrayList<>());
+        Product product1 = new Product(2L, "Impresora", 70.0, 5L, new ArrayList<>());
+
+        List<SaleProduct> saleProducts = List.of(
+                new SaleProduct(1, new Sale(), product, 7),
+                new SaleProduct(2, new Sale(), product1, 8));
+
+
+        List<ProductSaleDTO> productSaleDTOS = List.of(
+                new ProductSaleDTO(1L, 5),
+                new ProductSaleDTO(2L, 3));
+
+        CreateSaleDTO saleDTO = new CreateSaleDTO(client.getIdClient(), productSaleDTOS);
+
+
+
+        doThrow(new EntityNotFoundException("Sale not found")).when(saleService).editSale(saleDTO);
+
+
+        ResponseEntity<?> response = saleController.editSale(saleDTO);
+
+
+        assertNotNull(response);
+        assertEquals(NOT_FOUND, response.getStatusCode());
+        assertEquals("Sale not found", response.getBody());
+        verify(saleService, times(1)).editSale(saleDTO);
+    }
+
+    @Test
+    void editSaleInternalServerErrorTest() {
+        Client client = new Client(1L, "Aldair", "Martinez", "1234576", new ArrayList<>());
+
+        Product product = new Product(1L, "TV", 700.0, 7L, new ArrayList<>());
+        Product product1 = new Product(2L, "Impresora", 70.0, 5L, new ArrayList<>());
+
+        List<SaleProduct> saleProducts = List.of(
+                new SaleProduct(1, new Sale(), product, 7),
+                new SaleProduct(2, new Sale(), product1, 8));
+
+
+        List<ProductSaleDTO> productSaleDTOS = List.of(
+                new ProductSaleDTO(1L, 5),
+                new ProductSaleDTO(2L, 3));
+
+        CreateSaleDTO saleDTO = new CreateSaleDTO(client.getIdClient(), productSaleDTOS);
+        doThrow(new RuntimeException("Unexpected server error")).when(saleService).editSale(saleDTO);
+
+
+        ResponseEntity<?> response = saleController.editSale(saleDTO);
+
+
+        assertNotNull(response);
+        assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Server internal Error", response.getBody());
+        verify(saleService, times(1)).editSale(saleDTO);
     }
     @Test
     public void findSaleControllerTest (){

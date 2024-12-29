@@ -108,24 +108,63 @@ public class ProductControllerTest {
     }
 
     @Test
-    public  void editProductTest (){
-        Product product = new Product(1L, "TV", 100.0, 5L, new ArrayList<>());
+    void editProductSuccessTest() {
+        List<SaleProduct> saleProducts = new ArrayList<>();
+        Product product = new Product(1L, "TV", 120.0, 8L, saleProducts);
+
 
         doNothing().when(productService).editProduct(product);
-        when(productService.findProduct(product.getCodProduct())).thenReturn(product);
 
-        Product result = productController.editProduct(product);
 
-        assertNotNull(result);
-        assertEquals(product.getCodProduct(), result.getCodProduct());
-        assertEquals(product.getNameProduct(), result.getNameProduct());
-        assertEquals(product.getCost(), result.getCost());
-        assertEquals(product.getStock(), result.getStock());
-        assertTrue(result.getSaleList().isEmpty());
+        ResponseEntity<?> response = productController.editProduct(product);
+
+
+        assertNotNull(response);
+        assertEquals(OK, response.getStatusCode());
+        assertEquals(product, response.getBody());
+
 
         verify(productService, times(1)).editProduct(product);
-        verify(productService, times(1)).findProduct(product.getCodProduct());
+    }
 
+    @Test
+    void editProductNotFoundTest() {
+        List<SaleProduct> saleProducts = new ArrayList<>();
+        Product product = new Product(1L, "TV", 120.0, 8L, saleProducts);
+
+
+        doThrow(new EntityNotFoundException("Product not found")).when(productService).editProduct(product);
+
+
+        ResponseEntity<?> response = productController.editProduct(product);
+
+
+        assertNotNull(response);
+        assertEquals(NOT_FOUND, response.getStatusCode());
+        assertEquals("Product not found", response.getBody());
+
+
+        verify(productService, times(1)).editProduct(product);
+    }
+
+    @Test
+    void editProductServerErrorTest() {
+        List<SaleProduct> saleProducts = new ArrayList<>();
+        Product product = new Product(1L, "TV", 120.0, 8L, saleProducts);
+
+
+        doThrow(new RuntimeException("Server internal Error")).when(productService).editProduct(product);
+
+
+        ResponseEntity<?> response = productController.editProduct(product);
+
+        // Verificar el resultado
+        assertNotNull(response);
+        assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Server internal Error", response.getBody());
+
+
+        verify(productService, times(1)).editProduct(product);
     }
 
     @Test
