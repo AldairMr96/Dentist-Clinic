@@ -1,2 +1,9 @@
-package com.mycompany.clinica_odontologica.repository;public interface IUserRepository {
+package com.mycompany.clinica_odontologica.repository;
+
+import com.mycompany.clinica_odontologica.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface IUserRepository extends JpaRepository<User,Long> {
 }
