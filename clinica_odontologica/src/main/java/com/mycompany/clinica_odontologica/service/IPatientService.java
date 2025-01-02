@@ -1,2 +1,18 @@
-package com.mycompany.clinica_odontologica.service;public interface IPatientService {
+package com.mycompany.clinica_odontologica.service;
+
+import com.mycompany.clinica_odontologica.model.Patient;
+
+import java.util.List;
+
+public interface IPatientService {
+    public  void createPatient (Patient patient);
+
+    public List<Patient> getPatient();
+
+    public Patient findPatientById (Long idPatient);
+
+    public void deletePatientById (Long idPatient);
+
+    public Patient editPatient (Patient patient);
 }
+

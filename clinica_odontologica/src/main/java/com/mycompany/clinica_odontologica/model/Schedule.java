@@ -23,4 +23,5 @@ public class Schedule {
     private String timeOver;
     private String workingDays;
 
+
 }

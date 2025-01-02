@@ -17,12 +17,7 @@ public class DentistController {
     @Autowired
     private IDentistService dentistService;
 
-    @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Dentist createDentist (@RequestBody Dentist dentist){
-        dentistService.createDentist(dentist);
-        return dentist;
-    }
+
     @GetMapping("/get")
     @ResponseStatus(HttpStatus.OK)
     public List<Dentist> getDentists (){
@@ -34,13 +29,18 @@ public class DentistController {
         try {
             Dentist dentist =dentistService.findDentistById(idDentist);
             return  ResponseEntity.ok(dentist);
-        }catch (RuntimeException ex) {
+        }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }
-
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Dentist createDentist (@RequestBody Dentist dentist){
+        dentistService.createDentist(dentist);
+        return dentist;
+    }
     @PutMapping("/edit")
     public ResponseEntity<?> editDentist(Dentist dentist) {
         try{

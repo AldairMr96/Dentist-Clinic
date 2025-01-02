@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity
 public class Secretariat extends Person {
 
-    private String sector ;
+    private String sector;
 
     @OneToOne
     private User secretariatUser;

@@ -2,6 +2,7 @@ package com.mycompany.clinica_odontologica.service;
 
 import com.mycompany.clinica_odontologica.model.Dentist;
 import com.mycompany.clinica_odontologica.repository.IDentistRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +26,15 @@ public class DentistService implements IDentistService{
 
     @Override
     public Dentist findDentistById(Long idDentist) {
-        Dentist result = dentistRepository.findById(idDentist).orElseThrow(()->new RuntimeException("Dentist not Found"));
+        Dentist result = dentistRepository.findById(idDentist).
+                orElseThrow(()->new EntityNotFoundException("Dentist not Found"));
         return result;
     }
 
     @Override
     public void deleteDentistById(Long idDentist) {
         if(!dentistRepository.existsById(idDentist)) {
-            throw new RuntimeException("Dentis not found");
+            throw new EntityNotFoundException("Dentis not found");
         }
         dentistRepository.deleteById(idDentist);
     }
@@ -40,21 +42,21 @@ public class DentistService implements IDentistService{
     @Override
     public Dentist editDentist(Dentist dentist) {
         //check if the dentist exists
-        Dentist existingDentist = this.findDentistById(dentist.getIdPerson());
+        Dentist dentistFound = this.findDentistById(dentist.getIdPerson());
         //update data
-        existingDentist.setDni(dentist.getDni());
-        existingDentist.setName(dentist.getName());
-        existingDentist.setLastname(dentist.getLastname());
-        existingDentist.setNumberPhone(dentist.getNumberPhone());
-        existingDentist.setAddress(dentist.getAddress());
-        existingDentist.setSpeciality(dentist.getSpeciality());
-        existingDentist.setDateOfBirth(dentist.getDateOfBirth());
-        existingDentist.setDentistUser(dentist.getDentistUser());
-        existingDentist.setScheduleDentist(dentist.getScheduleDentist());
-        existingDentist.setTurnsDentist(dentist.getTurnsDentist());
+        dentistFound.setDni(dentist.getDni());
+        dentistFound.setName(dentist.getName());
+        dentistFound.setLastname(dentist.getLastname());
+        dentistFound.setNumberPhone(dentist.getNumberPhone());
+        dentistFound.setAddress(dentist.getAddress());
+        dentistFound.setDateOfBirth(dentist.getDateOfBirth());
+        dentistFound.setSpeciality(dentist.getSpeciality());
+        dentistFound.setDentistUser(dentist.getDentistUser());
+        dentistFound.setScheduleDentist(dentist.getScheduleDentist());
+        dentistFound.setTurnsDentist(dentist.getTurnsDentist());
         //Save new data for the dentist
-        dentistRepository.save(existingDentist);
+        this.createDentist(dentistFound);
 
-        return existingDentist;
+        return dentistFound;
     }
 }
