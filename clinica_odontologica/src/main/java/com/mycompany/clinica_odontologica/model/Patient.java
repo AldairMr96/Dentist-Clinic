@@ -1,6 +1,8 @@
 package com.mycompany.clinica_odontologica.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +17,8 @@ import java.util.List;
 @Entity
 public class Patient extends Person{
 
-    private String medicalIsure;
+    @Enumerated(EnumType.STRING)
+    private MedicalInsuranceTypeEnum medicalInsuranceType;
     private String bloodType;
     @OneToMany (mappedBy = "patient")
     private List<Turn> turnsPatient;

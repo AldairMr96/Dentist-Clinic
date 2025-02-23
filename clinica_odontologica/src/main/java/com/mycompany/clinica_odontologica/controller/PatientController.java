@@ -67,6 +67,18 @@ public class PatientController {
         }
     }
 
+    @GetMapping("/medical-insurance")
+    public ResponseEntity<?> getPatientWithMedicalInsure (@RequestParam String medicalInsurance){
+        try {
+            List <Patient> patients = patientService.getPatientWithMedicalInsure(medicalInsurance);
+            return  ResponseEntity.ok("Patient whit "+ medicalInsurance + " : " + patients);
+        }catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
+        }
+    }
+
     }
 
 

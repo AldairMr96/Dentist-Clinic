@@ -14,4 +14,6 @@ public interface IDentistService {
     public void deleteDentistById (Long idDentist);
 
     public Dentist editDentist (Dentist dentist);
+
+
 }

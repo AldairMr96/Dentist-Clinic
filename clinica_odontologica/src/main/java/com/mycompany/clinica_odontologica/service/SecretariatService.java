@@ -1,17 +1,24 @@
 package com.mycompany.clinica_odontologica.service;
 
+import com.mycompany.clinica_odontologica.model.Patient;
 import com.mycompany.clinica_odontologica.model.Secretariat;
+import com.mycompany.clinica_odontologica.model.Turn;
+import com.mycompany.clinica_odontologica.repository.IPatientRepository;
 import com.mycompany.clinica_odontologica.repository.ISecretariatRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class SecretariatService implements ISecretariatService {
     @Autowired
     private ISecretariatRepository secretariatRepository;
+    @Autowired
+    private IPatientRepository patientRepository;
     @Override
     public void createSecretariat(Secretariat secretariat) {
         secretariatRepository.save(secretariat);
@@ -50,8 +57,18 @@ public class SecretariatService implements ISecretariatService {
         secretariatFound.setAddress(secretariat.getAddress());
         secretariatFound.setDateOfBirth(secretariat.getDateOfBirth());
         secretariatFound.setSector(secretariat.getSector());
-        secretariatFound.setSecretariatUser(secretariat.getSecretariatUser());
+        secretariatFound.setSecretariatUserEntity(secretariat.getSecretariatUserEntity());
         this.createSecretariat(secretariatFound);
         return secretariatFound;
     }
+
+    @Override
+    public List<Patient> getPatientsPerDay(LocalDate date) {
+
+        List<Patient> patientsPerDay = patientRepository.findDistinctByTurnsPatient_DateTurn(date);
+
+        return patientsPerDay;
+    }
+
+
 }

@@ -1,7 +1,10 @@
 package com.mycompany.clinica_odontologica.service;
 
+import com.mycompany.clinica_odontologica.model.Patient;
 import com.mycompany.clinica_odontologica.model.Secretariat;
+import com.mycompany.clinica_odontologica.model.Turn;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ISecretariatService {
@@ -14,4 +17,6 @@ public interface ISecretariatService {
     public void deleteSecretariatById (Long idSecretariat);
 
     public Secretariat editSecretariat(Secretariat secretariat);
+
+    public List<Patient> getPatientsPerDay (LocalDate date);
 }

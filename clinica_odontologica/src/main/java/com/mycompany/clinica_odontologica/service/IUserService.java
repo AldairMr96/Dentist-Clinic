@@ -1,22 +1,27 @@
 package com.mycompany.clinica_odontologica.service;
 
 
-import com.mycompany.clinica_odontologica.model.User;
+import com.mycompany.clinica_odontologica.dto.AuthCreateUser;
+import com.mycompany.clinica_odontologica.dto.AuthLogin;
+import com.mycompany.clinica_odontologica.dto.AuthResponse;
+import com.mycompany.clinica_odontologica.model.UserEntity;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Map;
 
 public interface IUserService {
-    public  void createUser (String username, String password);
+    public  void createUser (AuthCreateUser authCreateUser);
 
-    public List<User> getUser();
+    public List<UserEntity> getUser();
 
-    public User finUserById (Long idUser);
+    public UserEntity finUserById (Long idUser);
 
     public void deleteUserById (Long idUser);
 
-    public User editUser (User user);
+    public UserEntity editUser (UserEntity userEntity);
 
-    ResponseEntity<String> singUp (Map<String, String> requestMap);
+    public AuthResponse loginUser(AuthLogin authLogin);
+
+
 }

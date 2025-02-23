@@ -51,7 +51,7 @@ public class DentistService implements IDentistService{
         dentistFound.setAddress(dentist.getAddress());
         dentistFound.setDateOfBirth(dentist.getDateOfBirth());
         dentistFound.setSpeciality(dentist.getSpeciality());
-        dentistFound.setDentistUser(dentist.getDentistUser());
+        dentistFound.setDentistUserEntity(dentist.getDentistUserEntity());
         dentistFound.setScheduleDentist(dentist.getScheduleDentist());
         dentistFound.setTurnsDentist(dentist.getTurnsDentist());
         //Save new data for the dentist

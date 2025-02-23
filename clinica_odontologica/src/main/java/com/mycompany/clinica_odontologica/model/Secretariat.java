@@ -16,6 +16,6 @@ public class Secretariat extends Person {
     private String sector;
 
     @OneToOne
-    private User secretariatUser;
+    private UserEntity secretariatUserEntity;
 
 }

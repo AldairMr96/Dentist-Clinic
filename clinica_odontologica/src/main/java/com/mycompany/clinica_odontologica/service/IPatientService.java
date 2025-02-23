@@ -14,5 +14,8 @@ public interface IPatientService {
     public void deletePatientById (Long idPatient);
 
     public Patient editPatient (Patient patient);
+
+    public List<Patient> getPatientWithMedicalInsure(String medicalInsuranceType);
+
 }
 

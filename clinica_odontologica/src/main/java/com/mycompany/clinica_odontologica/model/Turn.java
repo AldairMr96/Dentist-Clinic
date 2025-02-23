@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -18,7 +18,7 @@ public class Turn {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long idTurn;
     @Temporal(TemporalType.DATE)
-    private Date dateTurn;
+    private LocalDate dateTurn;
     private String shiftTime;
     private String disease;
     @ManyToOne
