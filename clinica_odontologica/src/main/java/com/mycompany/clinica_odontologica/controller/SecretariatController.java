@@ -1,14 +1,17 @@
 package com.mycompany.clinica_odontologica.controller;
 
 import com.mycompany.clinica_odontologica.model.Dentist;
+import com.mycompany.clinica_odontologica.model.Patient;
 import com.mycompany.clinica_odontologica.model.Secretariat;
 import com.mycompany.clinica_odontologica.service.ISecretariatService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -64,5 +67,11 @@ public class SecretariatController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
 
+    }
+
+    @GetMapping("/by-date")
+    public ResponseEntity<?> getPatientsPerDay (@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List<Patient> patients = secretariatService.getPatientsPerDay(date);
+        return ResponseEntity.ok(patients);
     }
 }

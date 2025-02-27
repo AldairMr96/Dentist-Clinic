@@ -22,6 +22,7 @@ public class DentistController {
     @ResponseStatus(HttpStatus.OK)
     public List<Dentist> getDentists (){
         List<Dentist> dentists = dentistService.getDentists();
+        System.out.println(dentists.isEmpty());
         return dentists;
     }
     @GetMapping("/find")

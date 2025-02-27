@@ -17,7 +17,7 @@ import java.util.List;
 public class Dentist extends Person{
     private String speciality;
     @OneToOne
-    private User dentistUser;
+    private UserEntity dentistUserEntity;
     @OneToOne
     private Schedule scheduleDentist;
     @OneToMany (mappedBy = "dentist")

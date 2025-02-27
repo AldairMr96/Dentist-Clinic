@@ -5,10 +5,12 @@ import com.mycompany.clinica_odontologica.model.Turn;
 import com.mycompany.clinica_odontologica.service.ITurnService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -66,4 +68,19 @@ public class TurnController {
         }
     }
 
+    @GetMapping("/get-turns-for-day")
+    public ResponseEntity<?> findTurnDentistPerDay (@RequestParam Long idDentist,
+                                                    @RequestParam("date")
+                                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
+
+       try {
+           List<Turn> turns = turnService.turnsDentistsPerDay(idDentist, date);
+           return ResponseEntity.ok(turns);
+       }catch (EntityNotFoundException ex){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+       }catch (Exception ex){
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
+       }
+
+    }
 }

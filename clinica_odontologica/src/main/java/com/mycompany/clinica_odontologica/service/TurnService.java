@@ -2,17 +2,21 @@ package com.mycompany.clinica_odontologica.service;
 
 import com.mycompany.clinica_odontologica.model.Responsible;
 import com.mycompany.clinica_odontologica.model.Turn;
+import com.mycompany.clinica_odontologica.repository.IDentistRepository;
 import com.mycompany.clinica_odontologica.repository.ITurnRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class TurnService implements ITurnService {
     @Autowired
     private ITurnRepository turnRepository;
+    @Autowired
+    private IDentistRepository dentistRepository;
 
     @Override
     public void createTurn(Turn turn) {
@@ -51,5 +55,15 @@ public class TurnService implements ITurnService {
 
         this.createTurn(turnFound);
         return turnFound;
+    }
+
+    @Override
+    public List<Turn> turnsDentistsPerDay(Long idDentist, LocalDate date) {
+           if( !dentistRepository.existsById(idDentist)){
+               throw  new EntityNotFoundException("Denstist not found");
+           }
+            List<Turn> turnsDentistsPerDay = turnRepository.findByDentist_IdPersonAndDateTurn(idDentist, date);
+
+        return turnsDentistsPerDay;
     }
 }
