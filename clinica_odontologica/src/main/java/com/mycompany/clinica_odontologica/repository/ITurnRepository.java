@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ITurnRepository extends JpaRepository<Turn,Long> {
 
-    List<Turn> findByDentist_IdAndDateTurn(Long dentistId, LocalDate dateTurn);
+    List<Turn> findByDentist_IdPersonAndDateTurn(Long dentistId, LocalDate dateTurn);
 }

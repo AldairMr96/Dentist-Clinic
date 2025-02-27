@@ -2,6 +2,7 @@ package com.mycompany.clinica_odontologica.controller;
 
 import com.mycompany.clinica_odontologica.dto.AuthCreateUser;
 import com.mycompany.clinica_odontologica.dto.AuthLogin;
+import com.mycompany.clinica_odontologica.dto.AuthResponse;
 import com.mycompany.clinica_odontologica.model.UserEntity;
 import com.mycompany.clinica_odontologica.repository.IRoleRepository;
 import com.mycompany.clinica_odontologica.service.IUserService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/dental_clinic/auth")
 public class UserController {
 
 @Autowired
@@ -46,7 +47,7 @@ private UserDetailsService userDetailsService;
 
     }
 
-    @PostMapping("/sign-in")
+    @PostMapping("/sigin")
     @ResponseStatus(HttpStatus.CREATED)
     public  ResponseEntity<?> createUser(@RequestBody @Valid AuthCreateUser userRequest){
         userService.createUser(userRequest);
@@ -76,12 +77,17 @@ private UserDetailsService userDetailsService;
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }
-    @PostMapping("/log-in")
+    @PostMapping("/login")
     public ResponseEntity<?> loginUser (@RequestBody @Valid AuthLogin userRequest){
+
         try {
-            return new ResponseEntity<>(this.userService.loginUser(userRequest), HttpStatus.OK);
+            AuthResponse response = userService.loginUser(userRequest);
+            System.out.println("Response: " + response);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }

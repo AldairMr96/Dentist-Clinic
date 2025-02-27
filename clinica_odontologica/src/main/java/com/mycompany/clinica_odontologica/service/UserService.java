@@ -57,15 +57,7 @@ private PasswordEncoder passwordEncoder;
         );
         return userDetail;
     }
-    public Authentication authenticated (String username, String password){
-        UserDetails userDetail= this.loadUserByUsername(username);
 
-
-        if (!passwordEncoder.matches(password, userDetail.getPassword())){
-            throw new BadCredentialsException("Invalid  password");
-        }
-        return new UsernamePasswordAuthenticationToken(username, userDetail.getPassword(), userDetail.getAuthorities());
-    }
     @Override
     public void createUser(AuthCreateUser authCreateUser) {
         String username = authCreateUser.username().trim();
@@ -140,9 +132,18 @@ private PasswordEncoder passwordEncoder;
         String accessToken = jwtUtils.createToken(authToken);
 
         AuthResponse response = new AuthResponse(username, "Login susscessfully", accessToken, true);
+        System.out.println(response);
 
         return response;
     }
+    public Authentication authenticated (String username, String password){
+        UserDetails userDetail= this.loadUserByUsername(username);
 
+
+        if (!passwordEncoder.matches(password, userDetail.getPassword())){
+            throw new BadCredentialsException("Invalid  password");
+        }
+        return new UsernamePasswordAuthenticationToken(username, userDetail.getPassword(), userDetail.getAuthorities());
+    }
 
 }

@@ -62,7 +62,7 @@ public class TurnService implements ITurnService {
            if( !dentistRepository.existsById(idDentist)){
                throw  new EntityNotFoundException("Denstist not found");
            }
-            List<Turn> turnsDentistsPerDay = turnRepository.findByDentist_IdAndDateTurn(idDentist, date);
+            List<Turn> turnsDentistsPerDay = turnRepository.findByDentist_IdPersonAndDateTurn(idDentist, date);
 
         return turnsDentistsPerDay;
     }

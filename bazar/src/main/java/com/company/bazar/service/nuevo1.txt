@@ -1,0 +1,18 @@
+ @Override
+    public void createUser(UserEntity userEntity) {
+
+        //Guarda por defecto el nombre en mayusculas
+        userEntity.setUsername(userEntity.getUsername().toUpperCase());
+        String passwordEncoder = new BCryptPasswordEncoder().encode(userEntity.getPassword());
+        userEntity.setPassword(passwordEncoder);
+        // Buscar el rol específico desde la base de datos, porque no se puede persistir el mismo rol varias veces debemos asignar uno ya existente
+        //Puede hacerse a traves del id del role o del nombre del rol
+        //roleRepository.findByRoleTypeEnum(userEntity.getRoleType().getRoleTypeEnum());
+        Role roleFinding = roleRepository.findByRoleTypeEnum(userEntity.getRoleType().getRoleTypeEnum())
+                .orElseThrow(() -> new EntityNotFoundException("Role not found"));
+
+        userEntity.setRoleType(roleFinding);
+
+
+       userRepository.save(userEntity);
+    }
