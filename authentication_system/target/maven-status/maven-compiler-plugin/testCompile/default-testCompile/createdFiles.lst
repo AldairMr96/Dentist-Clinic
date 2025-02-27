@@ -1,0 +1,3 @@
+com\mycompany\springsecurity\authenticationSystem\service\UserServiceTest.class
+com\mycompany\springsecurity\authenticationSystem\controlerTest\UserControllerTest.class
+com\mycompany\springsecurity\authenticationSystem\SpringSecurityTestApplicationTests.class

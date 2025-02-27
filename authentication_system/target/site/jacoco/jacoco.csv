@@ -1,0 +1,12 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.config.filter,JwtTokenValidator,55,0,2,0,17,0,3,0,2,0
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.util,JwtUtils,93,0,0,0,29,0,6,0,6,0
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.service,UserService,10,289,1,9,0,68,2,17,1,13
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.config,SecurityConfig,163,0,0,0,26,0,8,0,8,0
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.controller,UserController,0,100,0,0,0,28,0,7,0,7
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.model,RolesEnum,0,27,0,0,0,4,0,1,0,1
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem,SpringSecurityTestApplication,8,0,0,0,3,0,2,0,2,0
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.dto,AuthCreateUserRequest,0,12,0,0,0,1,0,1,0,1
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.dto,AuthLoginRequest,0,9,0,0,0,1,0,1,0,1
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.dto,AuthResponse,0,15,0,0,0,1,0,1,0,1
+SpringSecurityTest,com.mycompany.springsecurity.authenticationSystem.dto,AuthCreateRoleRequest,0,6,0,0,0,1,0,1,0,1
