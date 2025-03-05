@@ -6,6 +6,7 @@ import com.mycompany.clinica_odontologica.dto.AuthLogin;
 import com.mycompany.clinica_odontologica.dto.AuthResponse;
 import com.mycompany.clinica_odontologica.model.UserEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public interface IUserService {
 
     public UserEntity editUser (UserEntity userEntity);
 
-    public AuthResponse loginUser(AuthLogin authLogin);
+    public AuthResponse loginUser(AuthLogin authLogin, AuthenticationManager authenticationManager);
 
 
 }

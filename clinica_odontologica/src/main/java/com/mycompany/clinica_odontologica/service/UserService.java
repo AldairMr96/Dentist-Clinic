@@ -8,12 +8,13 @@ import com.mycompany.clinica_odontologica.model.RoleEnum;
 import com.mycompany.clinica_odontologica.model.UserEntity;
 import com.mycompany.clinica_odontologica.repository.IRoleRepository;
 import com.mycompany.clinica_odontologica.repository.IUserRepository;
-import com.mycompany.clinica_odontologica.utils.JWTUtils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -25,18 +26,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService implements UserDetailsService, IUserService {
 
-@Autowired
-private IUserRepository userRepository;
-@Autowired
-private IRoleRepository roleRepository;
-@Autowired
-private JWTUtils jwtUtils;
-@Autowired
-private PasswordEncoder passwordEncoder;
+    private final IUserRepository userRepository;
+    private final IRoleRepository roleRepository;
+    private final JwtService jwtService;
+
+    public UserService(IUserRepository userRepository,
+                       IRoleRepository roleRepository,
+                       JwtService jwtService) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.jwtService = jwtService;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntityFinding = userRepository.findUserEntityByUsername(username)
@@ -61,7 +67,8 @@ private PasswordEncoder passwordEncoder;
     @Override
     public void createUser(AuthCreateUser authCreateUser) {
         String username = authCreateUser.username().trim();
-        String password = passwordEncoder.encode(authCreateUser.password());
+        //String password = passwordEncoder.encode(authCreateUser.password());
+        String password = "admin";
         RoleEnum roleEnum = RoleEnum.valueOf(authCreateUser.roleRequest().roleName());
 
         if(userRepository.existsByUsername(username)){
@@ -108,7 +115,8 @@ private PasswordEncoder passwordEncoder;
         UserEntity userFinding = userRepository.findUserEntityByUsername(userEntity.getUsername())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         if (userEntity.getPassword() != null && !userEntity.getPassword().isEmpty()){
-            String passwordCrypted =this.passwordEncoder.encode(userEntity.getPassword());
+            //String passwordCrypted =this.passwordEncoder.encode(userEntity.getPassword());
+            String passwordCrypted = "admin";
             userFinding.setPassword(passwordCrypted);
         }
 
@@ -123,24 +131,37 @@ private PasswordEncoder passwordEncoder;
     }
 
     @Override
-    public AuthResponse loginUser(AuthLogin authLogin) {
+    public AuthResponse loginUser(AuthLogin authLogin, AuthenticationManager authenticationManager) {
         String username = authLogin.username();
         String password = authLogin.password();
 
-        Authentication authToken = this.authenticated(username, password);
-        SecurityContextHolder.getContext().setAuthentication(authToken);
-        String accessToken = jwtUtils.createToken(authToken);
+        try {
+            Authentication authToken = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
 
-        AuthResponse response = new AuthResponse(username, "Login susscessfully", accessToken, true);
-        System.out.println(response);
+            SecurityContextHolder.getContext().setAuthentication(authToken);
 
-        return response;
+            UserDetails userDetails = this.loadUserByUsername(username);
+
+            String role = userDetails.getAuthorities().stream()
+                    .findFirst()
+                    .map(GrantedAuthority::getAuthority)
+                    .orElse("ROLE_USER");
+
+            String accessToken = jwtService.generateToken(userDetails.getUsername(), role);
+
+            return new AuthResponse(username, "Login successfully", accessToken, true);
+        } catch (BadCredentialsException ex) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
     }
+
     public Authentication authenticated (String username, String password){
         UserDetails userDetail= this.loadUserByUsername(username);
 
-
-        if (!passwordEncoder.matches(password, userDetail.getPassword())){
+        // !passwordEncoder.matches(password, userDetail.getPassword())
+        if (!Objects.equals(password, userDetail.getPassword())){
             throw new BadCredentialsException("Invalid  password");
         }
         return new UsernamePasswordAuthenticationToken(username, userDetail.getPassword(), userDetail.getAuthorities());
