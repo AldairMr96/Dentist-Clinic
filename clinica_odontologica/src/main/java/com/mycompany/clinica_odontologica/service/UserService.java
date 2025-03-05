@@ -9,7 +9,7 @@ import com.mycompany.clinica_odontologica.model.UserEntity;
 import com.mycompany.clinica_odontologica.repository.IRoleRepository;
 import com.mycompany.clinica_odontologica.repository.IUserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,13 +34,16 @@ public class UserService implements UserDetailsService, IUserService {
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(IUserRepository userRepository,
                        IRoleRepository roleRepository,
-                       JwtService jwtService) {
+                       JwtService jwtService,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.jwtService = jwtService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -65,10 +68,10 @@ public class UserService implements UserDetailsService, IUserService {
     }
 
     @Override
+    @Transactional
     public void createUser(AuthCreateUser authCreateUser) {
         String username = authCreateUser.username().trim();
-        //String password = passwordEncoder.encode(authCreateUser.password());
-        String password = "admin";
+        String password = passwordEncoder.encode(authCreateUser.password());
         RoleEnum roleEnum = RoleEnum.valueOf(authCreateUser.roleRequest().roleName());
 
         if(userRepository.existsByUsername(username)){

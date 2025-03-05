@@ -1,12 +1,2 @@
 INSERT INTO ROLE (ID_ROLE, ROLE_TYPE_ENUM) VALUES (1, 'DENTIST');
-INSERT INTO USER_ENTITY (id_user, username, password, is_enable, account_no_expired, account_no_locked, creadential_no_expired, ROLE_ID_USER)
-VALUES (1, 'admin', '$2a$10$fi5xx590bXKbVlpEDByG5.Ae25ybEBK229.xWoH/Zltt9CGHgD3Ty', TRUE, TRUE, TRUE, TRUE, 1);
-INSERT INTO SCHEDULE (ID_SCHEDULE, STAR_TIME, TIME_OVER, WORKING_DAYS)
-VALUES (1, '08:00', '16:00', 'Monday-Friday');
-INSERT INTO DENTIST (
-    ID_PERSON, ADDRESS, DATE_OF_BIRTH, DNI, LASTNAME, NAME,
-    NUMBER_PHONE, SPECIALITY, DENTIST_USER_ENTITY_ID_USER, SCHEDULE_DENTIST_ID_SCHEDULE
-) VALUES (
-    1, '123 Main St', '1985-07-20', '12345678', 'Sandoval', 'Yuss',
-    '555-1234', 'Orthodontics', 1, 1
-);
+
