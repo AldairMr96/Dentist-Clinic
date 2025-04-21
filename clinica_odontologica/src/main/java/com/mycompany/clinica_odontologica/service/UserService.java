@@ -8,6 +8,7 @@ import com.mycompany.clinica_odontologica.model.RoleEnum;
 import com.mycompany.clinica_odontologica.model.UserEntity;
 import com.mycompany.clinica_odontologica.repository.IRoleRepository;
 import com.mycompany.clinica_odontologica.repository.IUserRepository;
+import com.mycompany.clinica_odontologica.util.JwtUtils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,16 +34,16 @@ public class UserService implements UserDetailsService, IUserService {
 
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;
-    private final JwtService jwtService;
+    private final JwtUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
 
     public UserService(IUserRepository userRepository,
                        IRoleRepository roleRepository,
-                       JwtService jwtService,
+                       JwtUtils jwtUtils,
                        PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.jwtService = jwtService;
+        this.jwtUtils = jwtUtils;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -152,7 +153,7 @@ public class UserService implements UserDetailsService, IUserService {
                     .map(GrantedAuthority::getAuthority)
                     .orElse("ROLE_USER");
 
-            String accessToken = jwtService.generateToken(userDetails.getUsername(), role);
+            String accessToken = jwtUtils.createToken(userDetails.getUsername(), role);
 
             return new AuthResponse(username, "Login successfully", accessToken, true);
         } catch (BadCredentialsException ex) {
