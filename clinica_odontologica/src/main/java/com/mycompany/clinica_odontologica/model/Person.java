@@ -7,9 +7,8 @@ import java.time.LocalDate;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Person {
+@MappedSuperclass
+public abstract  class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/dental_clinic/auth")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class UserController {
 
 @Autowired
@@ -56,8 +56,8 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
     @PostMapping("/sigin")
     @ResponseStatus(HttpStatus.CREATED)
     public  ResponseEntity<?> createUser(@RequestBody @Valid AuthCreateUser userRequest){
-        userService.createUser(userRequest);
-        return  ResponseEntity.ok("Create user susccessfully ");
+
+        return  ResponseEntity.ok(userService.createUser(userRequest));
     }
     @PutMapping("/edit")
     public ResponseEntity<?> editUser(@RequestBody UserEntity userEntity) {
@@ -73,9 +73,9 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestParam Long idUserEntity) {
+    public ResponseEntity<?> deleteUser(@RequestParam String  username) {
         try {
-            userService.deleteUserById(idUserEntity);
+            userService.deleteUserById(username);
             return ResponseEntity.ok("Delete user susccessfully");
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

@@ -1,8 +1,6 @@
 package com.mycompany.clinica_odontologica.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +12,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "dentists")
 public class Dentist extends Person{
     private String speciality;
     @OneToOne
     private UserEntity dentistUserEntity;
     @OneToOne
+    @JoinColumn(name ="id_scheduel_dentist")
     private Schedule scheduleDentist;
-    @OneToMany (mappedBy = "dentist")
+    @OneToMany (mappedBy = "dentist", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turn> turnsDentist;
  }

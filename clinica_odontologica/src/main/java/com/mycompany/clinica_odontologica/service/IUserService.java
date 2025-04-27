@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface IUserService {
-    public  void createUser (AuthCreateUser authCreateUser);
+    public  AuthResponse createUser (AuthCreateUser authCreateUser);
 
     public List<UserEntity> getUser();
 
     public UserEntity finUserById (Long idUser);
 
-    public void deleteUserById (Long idUser);
+    public void deleteUserById (String  username);
 
     public UserEntity editUser (UserEntity userEntity);
 
