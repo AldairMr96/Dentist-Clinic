@@ -13,7 +13,9 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long idUser;
+    @Column(nullable = false, unique = true)
     private  String username;
+    @Column(nullable = false)
     private String password;
     private Boolean isEnable;
     private Boolean accountNoExpired;

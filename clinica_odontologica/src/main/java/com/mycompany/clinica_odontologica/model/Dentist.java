@@ -1,5 +1,7 @@
 package com.mycompany.clinica_odontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +18,7 @@ import java.util.List;
 public class Dentist extends Person{
     private String speciality;
     @OneToOne
+    @JoinColumn(name = "id_user_dentist")
     private UserEntity dentistUserEntity;
     @OneToOne
     @JoinColumn(name ="id_scheduel_dentist")

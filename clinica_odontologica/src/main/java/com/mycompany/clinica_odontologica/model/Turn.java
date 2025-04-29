@@ -1,5 +1,6 @@
 package com.mycompany.clinica_odontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +25,11 @@ public class Turn {
     private String disease;
     @ManyToOne
     @JoinColumn(name="idTurnDentist")
+    @JsonBackReference
     private Dentist dentist;
     @ManyToOne
     @JoinColumn(name = "idTurnPatient")
+    @JsonBackReference
     private Patient patient;
 
 }

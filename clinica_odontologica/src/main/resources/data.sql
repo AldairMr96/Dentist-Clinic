@@ -41,11 +41,11 @@ INSERT INTO secretariats (id_person, dni, name, lastname, number_phone, address,
 --Date format yyyy/mm/dd
 (1, '1234567890', 'Jane', 'Doe', '3003113233', 'walk Street', '1996-12-25','managnament', 2);
 
-INSERT INTO dentists (id_person, dni, name, lastname, number_phone, address, date_of_birth, speciality, id_scheduel_dentist) VALUES
-(2, '1234567891', 'Jhon', 'Doe', '3003113234', 'five aveneu', '1998-10-19', 'orthodontics', 2);
+INSERT INTO dentists (id_person, dni, name, lastname, number_phone, address, date_of_birth, speciality,id_user_dentist, id_scheduel_dentist) VALUES
+(2, '1234567891', 'Jhon', 'Doe', '3003113234', 'five aveneu', '1998-10-19', 'orthodontics', 1 ,2);
 
-INSERT INTO patients (id_person, dni, name, lastname, number_phone, address, date_of_birth, medical_insurance_type,blood_type)VALUES
-(3, '1234567892', 'Jhonny', 'Doe', '3003113231', 'six aveneu', '1978-04-09', 'free', 'o+');
+INSERT INTO patients (id_person, dni, name, lastname, number_phone, address, date_of_birth, medical_insurance_type,blood_type,id_user_patient)VALUES
+(3, '1234567892', 'Jhonny', 'Doe', '3003113231', 'six aveneu', '1978-04-09', 'free', 'o+',3);
 
 INSERT INTO responsible_per_patient(id_person, dni, name, lastname, number_phone, address, date_of_birth,relationship_type, id_patient) VALUES
 (4, '1234567893', 'Jenny', 'Doe', '3003113230', 'person Street', '1978-04-09', 'father', 3);

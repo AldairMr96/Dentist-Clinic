@@ -1,5 +1,7 @@
 package com.mycompany.clinica_odontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +23,11 @@ public class Patient extends Person{
     @OneToMany (mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turn> turnsPatient;
     @OneToMany (mappedBy = "relationshipPatient", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Responsible> resonsibles;
+    @OneToOne
+    @JoinColumn(name = "id_user_patient")
+    @JsonIgnore
+    private UserEntity userEntityPatient;
 
 }

@@ -15,6 +15,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "responsible_per_patient")
 public class Responsible extends  Person{
+
     private String relationshipType;
     @ManyToOne
     @JoinColumn(name = "idPatient")

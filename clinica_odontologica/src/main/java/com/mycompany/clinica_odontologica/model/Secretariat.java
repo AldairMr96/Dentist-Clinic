@@ -1,5 +1,7 @@
 package com.mycompany.clinica_odontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -20,6 +22,7 @@ public class Secretariat extends Person {
 
     @OneToOne
     @JoinColumn(name = "id_user_secretariat")
+    @JsonIgnore
     private UserEntity secretariatUserEntity;
 
 }
