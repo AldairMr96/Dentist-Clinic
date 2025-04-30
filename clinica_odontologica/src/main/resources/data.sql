@@ -21,10 +21,10 @@ INSERT INTO role_permission (id_role_permission, id_role, id_permission_entity) 
 (9, 3, 1),
 (10,3, 2);
 INSERT INTO schedules (id_schedule, star_time, time_over, working_days) VALUES
-(1, '8:00', '17:00', 'MONDAY'),
-(2, '8:00', '17:00', 'TUESDAY'),
-(3, '8:00', '17:00', 'WEDNESDAY'),
-(4, '8:00', '17:00', 'THURSDAY'),
+(1, '8:00', '17:00', 'MONDAY-WEDNESDAY'),
+(2, '8:00', '17:00', 'TUESDAY-FRIDAY'),
+(3, '8:00', '17:00', 'WEDNESDAY-SATURDAY'),
+(4, '8:00', '17:00', 'THURSDAY-SATURDAY'),
 (5, '8:00', '17:00', 'FRIDAY'),
 (6, '8:00', '12:00', 'SATURDAY');
 

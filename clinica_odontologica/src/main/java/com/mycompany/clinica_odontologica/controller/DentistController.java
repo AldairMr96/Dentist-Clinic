@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
@@ -43,10 +44,10 @@ public class DentistController {
         return dentist;
     }
     @PutMapping("/edit")
-    public ResponseEntity<?> editDentist(Dentist dentist) {
+    public ResponseEntity<?> editDentist(@RequestBody Dentist dentist) {
         try{
-             dentistService.editDentist(dentist);
-            return  ResponseEntity.ok("edit dentist susccessfully" + dentistService.findDentistById(dentist.getIdPerson()));
+            dentistService.editDentist(dentist)
+            return  ResponseEntity.ok("edit dentist susccessfully"  );
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception ex){

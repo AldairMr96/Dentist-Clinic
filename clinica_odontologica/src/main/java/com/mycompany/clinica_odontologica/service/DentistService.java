@@ -42,6 +42,7 @@ public class DentistService implements IDentistService{
     @Override
     public Dentist editDentist(Dentist dentist) {
         //check if the dentist exists
+
         Dentist dentistFound = this.findDentistById(dentist.getIdPerson());
         //update data
         dentistFound.setDni(dentist.getDni());
@@ -53,7 +54,6 @@ public class DentistService implements IDentistService{
         dentistFound.setSpeciality(dentist.getSpeciality());
         dentistFound.setDentistUserEntity(dentist.getDentistUserEntity());
         dentistFound.setScheduleDentist(dentist.getScheduleDentist());
-        dentistFound.setTurnsDentist(dentist.getTurnsDentist());
         //Save new data for the dentist
         this.createDentist(dentistFound);
 

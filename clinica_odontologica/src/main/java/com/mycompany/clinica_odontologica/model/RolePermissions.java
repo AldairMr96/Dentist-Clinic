@@ -18,7 +18,6 @@ public class RolePermissions {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idRole", nullable = false)
-    @JsonBackReference
     private Role role;
 
     @ManyToOne(fetch = FetchType.EAGER)

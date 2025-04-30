@@ -63,8 +63,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
     public ResponseEntity<?> editUser(@RequestBody UserEntity userEntity) {
         try{
             userService.editUser(userEntity);
-            return  ResponseEntity.ok("edit user susccessfully "
-            );
+            return  ResponseEntity.ok("edit user susccessfully");
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception ex){
