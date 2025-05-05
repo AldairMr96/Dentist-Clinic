@@ -27,6 +27,6 @@ public class Dentist extends Person{
     @JoinColumn(name ="id_scheduel_dentist",referencedColumnName = "idSchedule")
     private Schedule scheduleDentist;
     @OneToMany (mappedBy = "dentist", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @JsonManagedReference("turns_dentist")
     private List<Turn> turnsDentist;
  }

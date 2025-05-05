@@ -1,5 +1,6 @@
 package com.mycompany.clinica_odontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,6 +20,7 @@ public class Responsible extends  Person{
     private String relationshipType;
     @ManyToOne
     @JoinColumn(name = "idPatient")
+    @JsonBackReference("responsibles")
     private Patient relationshipPatient;
 
 }

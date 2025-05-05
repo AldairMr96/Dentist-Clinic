@@ -22,12 +22,14 @@ public class Patient extends Person{
     private MedicalInsuranceTypeEnum medicalInsuranceType;
     private String bloodType;
     @OneToMany (mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference("turns_patient")
     private List<Turn> turnsPatient;
     @OneToMany (mappedBy = "relationshipPatient", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Responsible> resonsibles;
+    @JsonManagedReference("responsibles")
+    private List<Responsible> responsibles;
     @OneToOne
     @JoinColumn(name = "id_user_patient")
+    @JsonIgnore
     private UserEntity userEntityPatient;
 
 }

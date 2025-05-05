@@ -44,7 +44,7 @@ public class TurnController {
     }
 
     @PutMapping ("/edit")
-    public ResponseEntity<?> editTurn (Turn turn){
+    public ResponseEntity<?> editTurn (@RequestBody Turn turn){
         try {
             turnService.editTurn(turn);
             return  ResponseEntity.ok("edit turn susccessfully" +

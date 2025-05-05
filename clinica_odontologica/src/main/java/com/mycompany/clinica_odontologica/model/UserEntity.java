@@ -1,5 +1,6 @@
 package com.mycompany.clinica_odontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class UserEntity {
 
     @ManyToOne
     @JoinColumn(name = "role_id_user", nullable = false)
+    @JsonBackReference
     private Role roleType;
 
 

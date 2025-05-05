@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public abstract  class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long idPerson;
     private String dni;
     private String name ;

@@ -72,7 +72,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestParam String  username) {
+    public ResponseEntity<?> deleteUser(@RequestParam String username) {
         try {
             userService.deleteUserById(username);
             return ResponseEntity.ok("Delete user susccessfully");

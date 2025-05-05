@@ -41,7 +41,7 @@ public class ScheduleController {
         return schedule;
     }
     @PutMapping("/edit")
-    public ResponseEntity<?> editSchedule(Schedule schedule) {
+    public ResponseEntity<?> editSchedule(@RequestBody Schedule schedule) {
         try{
             scheduleService.editSchedule(schedule);
             return  ResponseEntity.ok("edit Schedule susccessfully" +

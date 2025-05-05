@@ -14,7 +14,7 @@ INSERT INTO role_permission (id_role_permission, id_role, id_permission_entity) 
 (2, 1, 2),
 (3, 1, 3),
 (4, 1, 4),
-(5, 2, 2),
+(5, 2, 1),
 (6, 2, 2),
 (7, 2, 3),
 (8, 2, 4),

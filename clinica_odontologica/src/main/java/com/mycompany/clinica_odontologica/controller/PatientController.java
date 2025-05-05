@@ -43,7 +43,7 @@ public class PatientController {
     }
 
     @PutMapping ("/edit")
-    public ResponseEntity<?> editPatient (Patient patient){
+    public ResponseEntity<?> editPatient (@RequestBody  Patient patient){
         try {
             patientService.editPatient(patient);
             return  ResponseEntity.ok("edit patient susccessfully" +

@@ -24,12 +24,14 @@ public class Turn {
     private LocalDate dateTurn;
     private String shiftTime;
     private String disease;
+
     @ManyToOne
     @JoinColumn(name="idTurnDentist")
+    @JsonBackReference("turns_dentist")
     private Dentist dentist;
     @ManyToOne
     @JoinColumn(name = "idTurnPatient")
-    @JsonBackReference("patient_reference")
+    @JsonBackReference("turns_patient")
     private Patient patient;
 
 }

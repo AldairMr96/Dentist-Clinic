@@ -48,6 +48,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.POST, "/dental_clinic/patient/create").hasAnyRole("DENTIST", "SECRETARIAT");
                     auth.requestMatchers(HttpMethod.PUT, "/dental_clinic/patient/update").hasAnyRole("DENTIST", "SECRETARIAT");
                     auth.requestMatchers(HttpMethod.DELETE, "/dental_clinic/patient/delete").hasAnyRole("DENTIST", "SECRETARIAT");
+                    auth.requestMatchers(HttpMethod.GET, "/dental_clinic/patient/medical-insurance").hasAnyRole("DENTIST", "SECRETARIAT", "PATIENT");
 
                     // Authentication Responsible
                     auth.requestMatchers(HttpMethod.GET, "/dental_clinic/responsible/get").permitAll();

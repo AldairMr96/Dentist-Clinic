@@ -46,7 +46,7 @@ public class DentistController {
     @PutMapping("/edit")
     public ResponseEntity<?> editDentist(@RequestBody Dentist dentist) {
         try{
-            dentistService.editDentist(dentist)
+            dentistService.editDentist(dentist);
             return  ResponseEntity.ok("edit dentist susccessfully"  );
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
@@ -57,7 +57,7 @@ public class DentistController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteDentist(  @RequestParam Long idDentist) {
+    public ResponseEntity<?> deleteDentist( @RequestParam Long idDentist) {
         try{
             dentistService.deleteDentistById(idDentist);
             return  ResponseEntity.ok("Delete dentist susccessfully");

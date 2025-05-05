@@ -1,6 +1,7 @@
 package com.mycompany.clinica_odontologica.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,7 @@ public class Role {
     private RoleEnum roleTypeEnum;
 
     @OneToMany (mappedBy = "roleType", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonManagedReference
     private Set<UserEntity> userEntities = new HashSet<>();
 
     @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

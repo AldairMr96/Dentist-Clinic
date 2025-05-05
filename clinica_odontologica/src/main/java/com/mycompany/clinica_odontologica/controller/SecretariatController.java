@@ -43,7 +43,7 @@ public class SecretariatController {
         return secretariat;
     }
     @PutMapping("/edit")
-    public ResponseEntity<?> editSecretariat(Secretariat secretariat) {
+    public ResponseEntity<?> editSecretariat(@RequestBody Secretariat secretariat) {
         try{
             secretariatService.editSecretariat(secretariat);
             return  ResponseEntity.ok("edit Secretariat susccessfully" +

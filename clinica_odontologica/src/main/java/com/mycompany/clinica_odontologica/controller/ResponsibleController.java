@@ -42,7 +42,7 @@ public class ResponsibleController {
         return  responsible;
     }
     @PutMapping("/edit")
-    public ResponseEntity<?> editResponsible (Responsible responsible) {
+    public ResponseEntity<?> editResponsible (@RequestBody  Responsible responsible) {
         try{
            responsibleService.editResponsible(responsible);
             return  ResponseEntity.ok("edit responsible susccessfully" + responsibleService.finResponsibletById(responsible.getIdPerson()));

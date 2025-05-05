@@ -66,6 +66,7 @@ public class UserService implements UserDetailsService, IUserService {
                 userEntityFinding.getAccountNoLocked(),
                 authorities
         );
+
         return userDetail;
     }
 
