@@ -23,17 +23,14 @@ public class DentistService implements IDentistService{
     private IScheduleRepository scheduleRepository;
     @Override
     public void createDentist(Dentist dentist) {
-        if(dentist.getScheduleDentist() != null){
-            Schedule mergedSchedule = scheduleRepository.findById(dentist.getScheduleDentist().getIdSchedule())
-                    .orElseThrow(()-> new EntityNotFoundException("Scheduel not found"));
-            dentist.setScheduleDentist(mergedSchedule);
-        }
-        if(dentist.getTurnsDentist() != null){
-            List<Turn> mergedTurns = dentist.getTurnsDentist().stream()
-                    .map(turn -> turnRepository.findById(turn.getIdTurn())
-                            .orElseThrow(()-> new EntityNotFoundException("Turn not found")))
-                    .toList();
-            dentist.setTurnsDentist(mergedTurns);
+        if (dentist.getScheduleDentist() != null) {
+            Schedule schedule = dentist.getScheduleDentist();
+
+            schedule = scheduleRepository.findById(schedule.getIdSchedule())
+                       .orElseThrow(() -> new EntityNotFoundException("Schedule not found"));
+
+
+            dentist.setScheduleDentist(schedule); // Add Schedule to Dentist
         }
         dentistRepository.save(dentist);
     }

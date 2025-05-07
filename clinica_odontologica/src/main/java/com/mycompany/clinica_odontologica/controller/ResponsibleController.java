@@ -45,7 +45,7 @@ public class ResponsibleController {
     public ResponseEntity<?> editResponsible (@RequestBody  Responsible responsible) {
         try{
            responsibleService.editResponsible(responsible);
-            return  ResponseEntity.ok("edit responsible susccessfully" + responsibleService.finResponsibletById(responsible.getIdPerson()));
+            return  ResponseEntity.ok( responsibleService.finResponsibletById(responsible.getIdPerson()));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception ex){

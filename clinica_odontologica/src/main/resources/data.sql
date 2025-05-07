@@ -39,7 +39,7 @@ INSERT INTO users (id_user, username, password, is_enable, account_no_expired, a
 
 INSERT INTO secretariats (id_person, dni, name, lastname, number_phone, address, date_of_birth, sector, id_user_secretariat) VALUES
 --Date format yyyy/mm/dd
-(1, '1234567890', 'Jane', 'Doe', '3003113233', 'walk Street', '1996-12-25','managnament', 2);
+(1, '1234567890', 'Jane', 'Doe', '3003113233', 'walk Street', '1996-12-25','managnament', 1);
 
 INSERT INTO dentists (id_person, dni, name, lastname, number_phone, address, date_of_birth, speciality,id_user_dentist, id_scheduel_dentist) VALUES
 (2, '1234567891', 'Jhon', 'Doe', '3003113234', 'five aveneu', '1998-10-19', 'orthodontics', 1 ,2);
@@ -51,5 +51,5 @@ INSERT INTO responsible_per_patient(id_person, dni, name, lastname, number_phone
 (4, '1234567893', 'Jenny', 'Doe', '3003113230', 'person Street', '1978-04-09', 'father', 3);
 
 INSERT INTO turns (id_turn, date_turn, shift_time, disease, id_turn_dentist, id_turn_patient) VALUES
-(1, '2025-04-25', '13:00', 'Gingivitis', 2, 3)
+(1, '2025-04-25', '13:00', 'Gingivitis', 2, 3);
 

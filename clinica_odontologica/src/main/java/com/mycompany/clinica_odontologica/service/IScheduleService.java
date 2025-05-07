@@ -6,7 +6,7 @@ import com.mycompany.clinica_odontologica.model.Schedule;
 import java.util.List;
 
 public interface IScheduleService {
-    public  void createSchedule (Schedule schedule);
+    public  Schedule createSchedule (Schedule schedule);
 
     public List<Schedule> getSchedule();
 

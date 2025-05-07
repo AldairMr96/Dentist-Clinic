@@ -37,8 +37,8 @@ public class ScheduleController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public Schedule createSchedule (@RequestBody Schedule schedule){
-        scheduleService.createSchedule(schedule);
-        return schedule;
+        System.out.println("id schedule is : " + schedule.getIdSchedule());
+         return scheduleService.createSchedule(schedule);
     }
     @PutMapping("/edit")
     public ResponseEntity<?> editSchedule(@RequestBody Schedule schedule) {

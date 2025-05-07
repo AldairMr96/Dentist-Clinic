@@ -13,8 +13,9 @@ public class ScheduleService implements IScheduleService {
     @Autowired
     private IScheduleRepository scheduleRepository;
     @Override
-    public void createSchedule(Schedule schedule) {
-        scheduleRepository.save(schedule);
+    public Schedule createSchedule(Schedule schedule) {
+
+       return scheduleRepository.save(schedule);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class ScheduleService implements IScheduleService {
         scheduleFound.setTimeOver(schedule.getTimeOver());
         scheduleFound.setWorkingDays(schedule.getWorkingDays());
 
-        this.createSchedule(scheduleFound);
+        scheduleRepository.save(scheduleFound);
         return scheduleFound;
     }
 }

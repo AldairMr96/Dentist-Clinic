@@ -23,7 +23,6 @@ public class DentistController {
     @ResponseStatus(HttpStatus.OK)
     public List<Dentist> getDentists (){
         List<Dentist> dentists = dentistService.getDentists();
-        System.out.println(dentists.isEmpty());
         return dentists;
     }
     @GetMapping("/find")
@@ -47,7 +46,7 @@ public class DentistController {
     public ResponseEntity<?> editDentist(@RequestBody Dentist dentist) {
         try{
             dentistService.editDentist(dentist);
-            return  ResponseEntity.ok("edit dentist susccessfully"  );
+            return  ResponseEntity.ok(dentistService.findDentistById(dentist.getIdPerson()));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception ex){

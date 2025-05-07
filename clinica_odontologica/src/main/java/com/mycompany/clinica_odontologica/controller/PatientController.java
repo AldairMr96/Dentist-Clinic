@@ -46,8 +46,7 @@ public class PatientController {
     public ResponseEntity<?> editPatient (@RequestBody  Patient patient){
         try {
             patientService.editPatient(patient);
-            return  ResponseEntity.ok("edit patient susccessfully" +
-                    patientService.findPatientById(patient.getIdPerson()));
+            return  ResponseEntity.ok( patientService.findPatientById(patient.getIdPerson()));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception ex){
@@ -71,14 +70,13 @@ public class PatientController {
     public ResponseEntity<?> getPatientWithMedicalInsure (@RequestParam String medicalInsurance){
         try {
             List <Patient> patients = patientService.getPatientWithMedicalInsure(medicalInsurance);
-            return  ResponseEntity.ok("Patient whit "+ medicalInsurance + " : " + patients);
+            return  ResponseEntity.ok( patients);
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }
-
     }
 
 
