@@ -46,8 +46,7 @@ public class SecretariatController {
     public ResponseEntity<?> editSecretariat(@RequestBody Secretariat secretariat) {
         try{
             secretariatService.editSecretariat(secretariat);
-            return  ResponseEntity.ok("edit Secretariat susccessfully" +
-                    secretariatService.findSecretariatById(secretariat.getIdPerson()));
+            return  ResponseEntity.ok(secretariatService.findSecretariatById(secretariat.getIdPerson()));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception ex){

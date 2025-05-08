@@ -16,8 +16,9 @@ import java.util.Date;
 @Table (name= "schedules")
 public class Schedule {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long idSchedule;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "schedules_seq", allocationSize = 1)
+    private Long idSchedule;
     @Column(name = "star_time", nullable = false)
     private String starTime;
     @Column(name = "time_over", nullable = false)

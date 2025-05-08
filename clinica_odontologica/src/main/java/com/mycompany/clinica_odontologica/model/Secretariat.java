@@ -22,6 +22,7 @@ public class Secretariat extends Person {
 
     @OneToOne
     @JoinColumn(name = "id_user_secretariat")
+    @JsonIgnore
     private UserEntity secretariatUserEntity;
 
 }
