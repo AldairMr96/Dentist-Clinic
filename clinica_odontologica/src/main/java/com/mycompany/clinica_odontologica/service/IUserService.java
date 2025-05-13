@@ -5,11 +5,9 @@ import com.mycompany.clinica_odontologica.dto.AuthCreateUser;
 import com.mycompany.clinica_odontologica.dto.AuthLogin;
 import com.mycompany.clinica_odontologica.dto.AuthResponse;
 import com.mycompany.clinica_odontologica.model.UserEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IUserService {
     public  AuthResponse createUser (AuthCreateUser authCreateUser);
@@ -18,7 +16,7 @@ public interface IUserService {
 
     public UserEntity finUserById (Long idUser);
 
-    public void deleteUserById (String  username);
+    public void deleteUserByUsername(String  username);
 
     public UserEntity editUser (UserEntity userEntity);
 

@@ -45,11 +45,11 @@ public class DentistController {
     @PutMapping("/edit")
     public ResponseEntity<?> editDentist(@RequestBody Dentist dentist) {
         try{
-            dentistService.editDentist(dentist);
-            return  ResponseEntity.ok(dentistService.findDentistById(dentist.getIdPerson()));
+
+            return  ResponseEntity.ok(dentistService.editDentist(dentist));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
 
@@ -62,7 +62,7 @@ public class DentistController {
             return  ResponseEntity.ok("Delete dentist susccessfully");
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
 

@@ -26,7 +26,7 @@ public class PatientService implements IPatientService{
     private IResponsibleRepository responsibleRepository;
     @Override
     @Transactional
-    public void createPatient(Patient patient) {
+    public Patient createPatient(Patient patient) {
         if (patient.getTurnsPatient()!= null){
             List<Turn> mergedTurns = patient.getTurnsPatient().stream()
                     .map(turn -> turnRepository.findById(turn.getIdTurn())
@@ -41,7 +41,7 @@ public class PatientService implements IPatientService{
                     .toList();
             patient.setResponsibles(mergedResponsibles);
         }
-        patientRepository.save(patient);
+       return patientRepository.save(patient);
     }
 
     @Override

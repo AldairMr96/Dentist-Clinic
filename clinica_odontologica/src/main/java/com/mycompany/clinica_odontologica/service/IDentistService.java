@@ -5,7 +5,7 @@ import com.mycompany.clinica_odontologica.model.Dentist;
 import java.util.List;
 
 public interface IDentistService {
-    public  void createDentist (Dentist dentist);
+    public  Dentist createDentist (Dentist dentist);
 
     public List<Dentist> getDentists();
 

@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,8 +61,8 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
     @PutMapping("/edit")
     public ResponseEntity<?> editUser(@RequestBody UserEntity userEntity) {
         try{
-            userService.editUser(userEntity);
-            return  ResponseEntity.ok("edit user susccessfully");
+
+            return  ResponseEntity.ok(userService.editUser(userEntity));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception ex){
@@ -74,7 +73,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestParam String username) {
         try {
-            userService.deleteUserById(username);
+            userService.deleteUserByUsername(username);
             return ResponseEntity.ok("Delete user susccessfully");
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

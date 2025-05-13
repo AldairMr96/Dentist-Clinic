@@ -22,7 +22,7 @@ public class DentistService implements IDentistService{
     @Autowired
     private IScheduleRepository scheduleRepository;
     @Override
-    public void createDentist(Dentist dentist) {
+    public Dentist createDentist(Dentist dentist) {
         if (dentist.getScheduleDentist() != null) {
             Schedule schedule = dentist.getScheduleDentist();
 
@@ -32,7 +32,7 @@ public class DentistService implements IDentistService{
 
             dentist.setScheduleDentist(schedule); // Add Schedule to Dentist
         }
-        dentistRepository.save(dentist);
+       return dentistRepository.save(dentist);
     }
 
     @Override

@@ -134,7 +134,6 @@ public class UserService implements UserDetailsService, IUserService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         if (userFinding.getPassword() != null && !userFinding.getPassword().isEmpty()){
             String passwordCrypted =this.passwordEncoder.encode(userEntity.getPassword());
-            //String passwordCrypted = "admin";
             userFinding.setPassword(passwordCrypted);
         }
 
@@ -150,13 +149,13 @@ public class UserService implements UserDetailsService, IUserService {
 
     @Override
     @Transactional
-    public void deleteUserById(String username) {
+    public void deleteUserByUsername(String username) {
         UserEntity userFinding = userRepository.findUserEntityByUsername(username).orElseThrow(() -> new EntityNotFoundException("User not found"));
         if (!userRepository.existsById(userFinding.getIdUser())){
             throw new EntityNotFoundException("User not found");
         }
         userRepository.deleteById(userFinding.getIdUser());
-        System.out.println("Deleted user: " + userFinding.getIdUser());
+
     }
 
     @Override
