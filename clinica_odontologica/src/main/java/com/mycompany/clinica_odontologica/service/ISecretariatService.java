@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ISecretariatService {
-    public  void createSecretariat(Secretariat secretariat);
+    public  Secretariat createSecretariat(Secretariat secretariat);
 
     public List<Secretariat> getSecretariats();
 

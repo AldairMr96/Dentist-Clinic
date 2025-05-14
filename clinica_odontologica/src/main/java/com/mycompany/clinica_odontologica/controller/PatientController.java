@@ -45,11 +45,11 @@ public class PatientController {
     @PutMapping ("/edit")
     public ResponseEntity<?> editPatient (@RequestBody  Patient patient){
         try {
-            patientService.editPatient(patient);
-            return  ResponseEntity.ok( patientService.findPatientById(patient.getIdPerson()));
+
+            return  ResponseEntity.ok(patientService.editPatient(patient) );
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }
@@ -58,10 +58,10 @@ public class PatientController {
     public ResponseEntity<?> deletePatient (@RequestParam Long idPatient){
         try {
             patientService.deletePatientById(idPatient);
-            return  ResponseEntity.ok("Delete dentist susccessfully");
+            return  ResponseEntity.ok("Delete patient susccessfully");
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }
@@ -73,7 +73,7 @@ public class PatientController {
             return  ResponseEntity.ok( patients);
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }

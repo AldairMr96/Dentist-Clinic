@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,11 +46,11 @@ public class SecretariatController {
     @PutMapping("/edit")
     public ResponseEntity<?> editSecretariat(@RequestBody Secretariat secretariat) {
         try{
-            secretariatService.editSecretariat(secretariat);
-            return  ResponseEntity.ok(secretariatService.findSecretariatById(secretariat.getIdPerson()));
+
+            return  ResponseEntity.ok(secretariatService.editSecretariat(secretariat));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
 
@@ -62,7 +63,7 @@ public class SecretariatController {
             return  ResponseEntity.ok("Delete Secretariat susccessfully");
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
 
@@ -70,7 +71,11 @@ public class SecretariatController {
 
     @GetMapping("/by-date")
     public ResponseEntity<?> getPatientsPerDay (@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        List<Patient> patients = secretariatService.getPatientsPerDay(date);
-        return ResponseEntity.ok(patients);
+        try {
+            return ResponseEntity.ok( secretariatService.getPatientsPerDay(date));
+        }catch (RuntimeException ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
+        }
+
     }
 }

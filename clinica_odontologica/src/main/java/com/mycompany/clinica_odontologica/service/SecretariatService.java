@@ -20,8 +20,8 @@ public class SecretariatService implements ISecretariatService {
     @Autowired
     private IPatientRepository patientRepository;
     @Override
-    public void createSecretariat(Secretariat secretariat) {
-        secretariatRepository.save(secretariat);
+    public Secretariat createSecretariat(Secretariat secretariat) {
+       return secretariatRepository.save(secretariat);
     }
 
     @Override
