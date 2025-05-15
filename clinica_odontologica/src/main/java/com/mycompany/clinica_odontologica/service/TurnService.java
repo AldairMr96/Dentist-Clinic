@@ -19,8 +19,9 @@ public class TurnService implements ITurnService {
     private IDentistRepository dentistRepository;
 
     @Override
-    public void createTurn(Turn turn) {
-        turnRepository.save(turn);
+    public Turn createTurn(Turn turn) {
+
+        return turnRepository.save(turn);
     }
 
     @Override

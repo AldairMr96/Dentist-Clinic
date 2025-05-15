@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ITurnService {
-    public  void createTurn (Turn turn);
+    public  Turn createTurn (Turn turn);
 
     public List<Turn> getTurn();
 

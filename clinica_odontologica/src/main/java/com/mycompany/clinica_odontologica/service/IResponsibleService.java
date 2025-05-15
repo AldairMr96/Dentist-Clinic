@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IResponsibleService {
 
-    public  void createResponsible (Responsible responsible);
+    public  Responsible createResponsible (Responsible responsible);
 
     public List<Responsible> getResponsibles();
 

@@ -13,8 +13,9 @@ public class ResponsibleService implements IResponsibleService{
     @Autowired
     private IResponsibleRepository responsibleRepository;
     @Override
-    public void createResponsible(Responsible responsible) {
-        responsibleRepository.save(responsible);
+    public Responsible createResponsible(Responsible responsible) {
+
+        return responsibleRepository.save(responsible);
     }
 
     @Override

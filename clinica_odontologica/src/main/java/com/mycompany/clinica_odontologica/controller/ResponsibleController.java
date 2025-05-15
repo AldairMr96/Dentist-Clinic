@@ -44,11 +44,11 @@ public class ResponsibleController {
     @PutMapping("/edit")
     public ResponseEntity<?> editResponsible (@RequestBody  Responsible responsible) {
         try{
-           responsibleService.editResponsible(responsible);
-            return  ResponseEntity.ok( responsibleService.finResponsibletById(responsible.getIdPerson()));
+
+            return  ResponseEntity.ok(responsibleService.editResponsible(responsible) );
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
 
@@ -60,7 +60,7 @@ public class ResponsibleController {
             return ResponseEntity.ok("Delete responsible susccessfully");
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }

@@ -46,12 +46,11 @@ public class TurnController {
     @PutMapping ("/edit")
     public ResponseEntity<?> editTurn (@RequestBody Turn turn){
         try {
-            turnService.editTurn(turn);
-            return  ResponseEntity.ok("edit turn susccessfully" +
-                    turnService.finTurnById(turn.getIdTurn()));
+
+            return  ResponseEntity.ok(turnService.editTurn(turn));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }
@@ -63,7 +62,7 @@ public class TurnController {
             return  ResponseEntity.ok("Delete turn susccessfully");
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
     }
@@ -74,11 +73,11 @@ public class TurnController {
                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
 
        try {
-           List<Turn> turns = turnService.turnsDentistsPerDay(idDentist, date);
-           return ResponseEntity.ok(turns);
+
+           return ResponseEntity.ok(turnService.turnsDentistsPerDay(idDentist, date));
        }catch (EntityNotFoundException ex){
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-       }catch (Exception ex){
+       }catch (RuntimeException ex){
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
        }
 

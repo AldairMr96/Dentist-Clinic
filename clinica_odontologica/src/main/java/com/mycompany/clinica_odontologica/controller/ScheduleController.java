@@ -37,18 +37,16 @@ public class ScheduleController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public Schedule createSchedule (@RequestBody Schedule schedule){
-        System.out.println("id schedule is : " + schedule.getIdSchedule());
          return scheduleService.createSchedule(schedule);
     }
     @PutMapping("/edit")
     public ResponseEntity<?> editSchedule(@RequestBody Schedule schedule) {
         try{
-            scheduleService.editSchedule(schedule);
-            return  ResponseEntity.ok("edit Schedule susccessfully" +
-                   scheduleService.findScheduleById(schedule.getIdSchedule()));
+
+            return  ResponseEntity.ok(scheduleService.editSchedule(schedule));
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
 
@@ -61,7 +59,7 @@ public class ScheduleController {
             return  ResponseEntity.ok("Delete Schedule susccessfully");
         }catch (EntityNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception ex){
+        }catch (RuntimeException ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server internal Error");
         }
 
