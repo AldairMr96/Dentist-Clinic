@@ -3,7 +3,6 @@ package com.mycompany.clinica_odontologica.controller.test;
 import com.mycompany.clinica_odontologica.controller.TurnController;
 import com.mycompany.clinica_odontologica.model.Dentist;
 import com.mycompany.clinica_odontologica.model.Patient;
-import com.mycompany.clinica_odontologica.model.Schedule;
 import com.mycompany.clinica_odontologica.model.Turn;
 import com.mycompany.clinica_odontologica.service.ITurnService;
 import jakarta.persistence.EntityNotFoundException;
@@ -208,7 +207,7 @@ public class TurnControllerTest {
         verify(turnService, times(1)).deleteTurnById(idTurn);
     }
     @Test
-    void deleteScheduleInternalErrorTest (){
+    void deleteTurnInternalErrorTest (){
         Long idTurn =1L;
 
         doThrow(new RuntimeException("Server internal Error")).when(turnService).deleteTurnById(idTurn);
@@ -219,4 +218,58 @@ public class TurnControllerTest {
         assertEquals("Server internal Error", response.getBody());
         verify(turnService, times(1)).deleteTurnById(idTurn);
     }
+
+    @Test
+    void turnsPerDaySuccessTest (){
+        Long idDentsit = 1L;
+        LocalDate localDate = LocalDate.now();
+        Dentist dentist = new Dentist();
+        Patient patient = new Patient();
+        Turn turn = new Turn(1L, localDate, "8:00", "8:20", dentist, patient);
+        List<Turn> turns = List.of(turn);
+
+        when(turnService.turnsDentistsPerDay(idDentsit, localDate)).thenReturn(turns);
+
+        ResponseEntity<?> response = turnController.findTurnDentistPerDay(idDentsit, localDate);
+
+        assertNotNull(response);
+        assertEquals(OK, response.getStatusCode());
+        assertEquals(turns, response.getBody());
+        verify(turnService, times(1)).turnsDentistsPerDay(idDentsit, localDate);
+
+    }
+    @Test
+    void turnsPerDayNotFoundTest (){
+        Long idDentsit = 1L;
+        LocalDate localDate = LocalDate.now();
+
+
+        when(turnService.turnsDentistsPerDay(idDentsit, localDate)).thenThrow(new EntityNotFoundException("Denstist not found"));
+
+        ResponseEntity<?> response = turnController.findTurnDentistPerDay(idDentsit, localDate);
+
+        assertNotNull(response);
+        assertEquals(NOT_FOUND, response.getStatusCode());
+        assertEquals("Denstist not found", response.getBody());
+        verify(turnService, times(1)).turnsDentistsPerDay(idDentsit, localDate);
+
+    }
+    @Test
+    void turnsPerDayInternalErrorTest (){
+        Long idDentsit = 1L;
+        LocalDate localDate = LocalDate.now();
+
+
+        when(turnService.turnsDentistsPerDay(idDentsit, localDate)).thenThrow(new RuntimeException("Server internal Error"));
+
+        ResponseEntity<?> response = turnController.findTurnDentistPerDay(idDentsit, localDate);
+
+        assertNotNull(response);
+        assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Server internal Error", response.getBody());
+        verify(turnService, times(1)).turnsDentistsPerDay(idDentsit, localDate);
+
+    }
+
+
 }

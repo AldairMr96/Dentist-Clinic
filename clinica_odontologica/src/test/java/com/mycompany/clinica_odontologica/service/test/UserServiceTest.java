@@ -562,4 +562,28 @@ public class UserServiceTest {
         Assertions.assertTrue(updatedUser.getAccountNoLocked());
         Assertions.assertTrue(updatedUser.getCreadentialNoExpired());
     }
+
+    @Test
+    void testEditUserPasswordEncoding() {
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername("testUser");
+        userEntity.setPassword("newPassword");
+
+        UserEntity userFinding = new UserEntity();
+        userFinding.setUsername("testUser");
+        userFinding.setPassword("oldPassword");
+
+
+        when(userRepository.findUserEntityByUsername("testUser")).thenReturn(Optional.of(userFinding));
+        when(passwordEncoder.encode("newPassword")).thenReturn("encryptedPassword");
+
+
+        UserEntity updatedUser = userService.editUser(userEntity);
+
+
+        assertEquals("encryptedPassword", updatedUser.getPassword());
+        verify(passwordEncoder).encode("newPassword");
+    }
+
 }
