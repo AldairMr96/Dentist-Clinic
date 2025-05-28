@@ -88,7 +88,7 @@ public class PatientService implements IPatientService{
         List<Patient> allPatients= this.getPatient();
         List<Patient> patientsWhitInsuranceType = new ArrayList<>();
         MedicalInsuranceTypeEnum enumMedicalInsurance = MedicalInsuranceTypeEnum.valueOf(medicalInsuranceType);
-        if (!allPatients.isEmpty() && allPatients != null) {
+        if (!allPatients.isEmpty()) {
             for (Patient patient : allPatients) {
                 if ( patient.getMedicalInsuranceType() == enumMedicalInsurance ) {
                     patientsWhitInsuranceType.add(patient);

@@ -471,6 +471,7 @@ public class UserServiceTest {
         assertTrue(result.getAccountNoExpired());
         assertTrue(result.getAccountNoLocked());
         assertTrue(result.getCreadentialNoExpired());
+
     }
     @Test
     void testEditUserNotFound() {
@@ -486,6 +487,7 @@ public class UserServiceTest {
 
         assertEquals("User not found", exception.getMessage());
         verify(userRepository, times(1)).findUserEntityByUsername(updatedUser.getUsername());
+        verify(passwordEncoder,never()).encode(null);
         verify(userRepository, never()).save(any());
     }
     @Test
@@ -493,7 +495,7 @@ public class UserServiceTest {
         // Datos de prueba
         UserEntity inputUser = new UserEntity();
         inputUser.setUsername("test_user");
-        inputUser.setPassword(null);
+        inputUser.setPassword("password");
         inputUser.setIsEnable(true);
         inputUser.setAccountNoExpired(true);
         inputUser.setAccountNoLocked(true);
@@ -501,7 +503,7 @@ public class UserServiceTest {
 
         UserEntity existingUser = new UserEntity();
         existingUser.setUsername("test_user");
-        existingUser.setPassword("oldPassword");
+        existingUser.setPassword(null);
         existingUser.setIsEnable(true);
         existingUser.setAccountNoExpired(true);
         existingUser.setAccountNoLocked(true);
@@ -516,7 +518,7 @@ public class UserServiceTest {
 
 
         verify(userRepository).findUserEntityByUsername("test_user");
-        verify(passwordEncoder, times(1)).encode("oldPassword");
+        verify(passwordEncoder,never()).encode(anyString());
         verify(userRepository).save(existingUser);
 
         Assertions.assertEquals(null, updatedUser.getPassword());
@@ -530,7 +532,7 @@ public class UserServiceTest {
         // Datos de prueba
         UserEntity inputUser = new UserEntity();
         inputUser.setUsername("testUser");
-        inputUser.setPassword("");
+        inputUser.setPassword("oldapassword");
         inputUser.setIsEnable(true);
         inputUser.setAccountNoExpired(true);
         inputUser.setAccountNoLocked(true);
@@ -538,7 +540,7 @@ public class UserServiceTest {
 
         UserEntity existingUser = new UserEntity();
         existingUser.setUsername("testUser");
-        existingUser.setPassword("oldPassword");
+        existingUser.setPassword("");
         existingUser.setIsEnable(true);
         existingUser.setAccountNoExpired(true);
         existingUser.setAccountNoLocked(true);
@@ -546,14 +548,14 @@ public class UserServiceTest {
 
 
         when(userRepository.findUserEntityByUsername("testUser")).thenReturn(Optional.of(existingUser));
-        when(passwordEncoder.encode("")).thenReturn(existingUser.getPassword());
+
 
 
         UserEntity updatedUser = userService.editUser(inputUser);
 
 
         verify(userRepository, times(1)).findUserEntityByUsername("testUser");
-        verify(passwordEncoder, times(1)).encode("");
+        verify(passwordEncoder,never()).encode(anyString());
         verify(userRepository).save(existingUser);
 
         Assertions.assertEquals(existingUser.getPassword(), updatedUser.getPassword());
@@ -574,13 +576,10 @@ public class UserServiceTest {
         userFinding.setUsername("testUser");
         userFinding.setPassword("oldPassword");
 
-
         when(userRepository.findUserEntityByUsername("testUser")).thenReturn(Optional.of(userFinding));
         when(passwordEncoder.encode("newPassword")).thenReturn("encryptedPassword");
 
-
         UserEntity updatedUser = userService.editUser(userEntity);
-
 
         assertEquals("encryptedPassword", updatedUser.getPassword());
         verify(passwordEncoder).encode("newPassword");

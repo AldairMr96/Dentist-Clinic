@@ -112,7 +112,7 @@ public class DentistServiceTest {
         dentist.setScheduleDentist(schedule);
         dentist.setTurnsDentist(turns);
 
-        when(scheduleRepository.findById(schedule.getIdSchedule())).thenThrow(new EntityNotFoundException("Schedule not found"));
+        when(scheduleRepository.findById(schedule.getIdSchedule())).thenReturn(Optional.empty());
         assertThrows(EntityNotFoundException.class,()-> dentistService.createDentist(dentist));
 
         verify(scheduleRepository, times(1)).findById(1L);
